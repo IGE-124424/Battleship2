@@ -1,6 +1,9 @@
 package battleship;
 
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +44,7 @@ public class Tasks {
 		IFleet myFleet = null;
 		IGame game = null;
 		menuHelp();
+		List<String> logJogadas = new ArrayList<>();
 
 		System.out.print("> ");
 		Scanner in = new Scanner(System.in);
@@ -53,19 +57,23 @@ public class Tasks {
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
 					break;
+
 				case LEFROTA:
 					myFleet = buildFleet(in);
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
 					break;
+
 				case STATUS:
 					if (myFleet != null)
 						myFleet.printStatus();
 					break;
+
 				case MAPA:
 					if (myFleet != null)
 						game.printMyBoard(false, true);
 					break;
+
 				case RAJADA:
 					if (game != null) {
 						game.readEnemyFire(in);
@@ -74,13 +82,27 @@ public class Tasks {
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
+
+							// GERAR PDF ANTES DE SAIR
+							try {
+								Path pdf = PdfReportGenerator.generateMovesReport(
+										logJogadas,
+										Path.of("target", "jogadas.pdf")
+								);
+								System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
+							} catch (Exception e) {
+								System.out.println("Erro ao gerar PDF: " + e.getMessage());
+								e.printStackTrace();
+							}
+
 							System.exit(0);
 						}
 					}
 					break;
+
 				case SIMULA:
 					if (game != null) {
-						while (game.getRemainingShips() > 0){
+						while (game.getRemainingShips() > 0) {
 							game.randomEnemyFire();
 							myFleet.printStatus();
 							game.printMyBoard(true, false);
@@ -93,23 +115,53 @@ public class Tasks {
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
+
+							// GERAR PDF ANTES DE SAIR
+							try {
+								Path pdf = PdfReportGenerator.generateMovesReport(
+										logJogadas,
+										Path.of("target", "jogadas.pdf")
+								);
+								System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
+							} catch (Exception e) {
+								System.out.println("Erro ao gerar PDF: " + e.getMessage());
+								e.printStackTrace();
+							}
+
 							System.exit(0);
 						}
 					}
 					break;
+
 				case TIROS:
 					if (game != null)
 						game.printMyBoard(true, true);
 					break;
-                case AJUDA:
-                    menuHelp();
-                    break;
+
+				case AJUDA:
+					menuHelp();
+					break;
+
 				default:
 					System.out.println("Que comando é esse??? Repete ...");
 			}
+
 			System.out.print("> ");
 			command = in.next();
 		}
+
+// Chegaste aqui quando o utilizador escreveu "desisto" (terminou o while)
+		try {
+			Path pdf = PdfReportGenerator.generateMovesReport(
+					logJogadas,
+					Path.of("target", "jogadas.pdf")
+			);
+			System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
+		} catch (Exception e) {
+			System.out.println("Erro ao gerar PDF: " + e.getMessage());
+			e.printStackTrace();
+		}
+
 		System.out.println(GOODBYE_MESSAGE);
 	}
 
