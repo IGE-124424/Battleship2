@@ -1,4 +1,5 @@
 package battleship;
+import org.apache.commons.lang3.time.StopWatch;
 
 import java.util.Scanner;
 
@@ -68,7 +69,15 @@ public class Tasks {
 					break;
 				case RAJADA:
 					if (game != null) {
+
+						StopWatch watch = new StopWatch();
+						watch.start();
+
 						game.readEnemyFire(in);
+
+						watch.stop();
+						System.out.println("Tempo da jogada: " + watch.getTime() + " ms");
+
 						myFleet.printStatus();
 						game.printMyBoard(true, false);
 
