@@ -1,3 +1,18 @@
+## Project Documentation
+
+The project documentation generated with Javadoc is available at:
+
+[https://ige-124424.github.io/Battleship2/](https://britoeabreu.github.io/Battleship2/battleship/package-summary.html)
+
+
+
+
+
+
+
+
+
+
 # ⚓ Battleship 2.0
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
