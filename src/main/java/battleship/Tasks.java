@@ -27,6 +27,7 @@ public class Tasks {
 	/**
 	 * Strings to be used by the user
 	 */
+    private static final String GUI = "gui";
 	private static final String AJUDA = "ajuda";
 	private static final String GERAFROTA = "gerafrota";
 	private static final String LEFROTA = "lefrota";
@@ -53,6 +54,9 @@ public class Tasks {
 		while (!command.equals(DESISTIR)) {
 
 			switch (command) {
+                case GUI:
+                    BoardGUI.launchBoard();
+                    break;
 				case GERAFROTA:
 					myFleet = Fleet.createRandom();
 					game = new Game(myFleet);
@@ -180,6 +184,7 @@ public class Tasks {
 	public static void menuHelp() {
 		System.out.println("======================= AJUDA DO MENU =========================");
 		System.out.println("Digite um dos comandos abaixo para interagir com o jogo:");
+        System.out.println("- gui: Mostra o tabuleiro gráfico.");
 		System.out.println("- " + GERAFROTA + ": Gera uma frota aleatória de navios.");
 		System.out.println("- " + LEFROTA + ": Permite criar e carregar uma frota personalizada.");
 		System.out.println("- " + STATUS + ": Mostra o status atual da frota.)");

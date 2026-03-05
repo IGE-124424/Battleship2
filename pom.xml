@@ -35,6 +35,17 @@
 	</properties>
 
 	<dependencies>
+
+
+        <!-- JavaFX dependencia maven adicionada -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>25.0.2</version>
+        </dependency>
+
+		<!-- JUnit Jupiter API -->
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -42,6 +53,7 @@
         </dependency>
 
         <!-- JUnit Jupiter API -->
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
