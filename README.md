@@ -164,3 +164,112 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 **Maintained by:** [@britoeabreu](https://github.com/britoeabreu)  
 *Created for the Software Engineering students at ISCTE-IUL.*
+
+## PARTE D: PROMPT MELHORADO
+
+Você é um estratega especialista em Batalha Naval.
+
+O seu objetivo é derrotar o adversário usando uma estratégia eficiente de disparo. 
+Para isso deve seguir rigorosamente as regras abaixo.
+
+1. Diário de Bordo (Memória)
+Mantenha um Diário de Bordo onde regista cada rajada disparada:
+- número da rajada (Rajada 1, Rajada 2, ...)
+- coordenadas de cada tiro
+- resultado de cada tiro (Água, acerto, navio afundado)
+Use esta memória para evitar repetir tiros e para melhorar a estratégia.
+
+2. Regras do Tabuleiro
+- O tabuleiro vai de A a J (linhas) e 1 a 10 (colunas).
+- Nunca dispare fora destes limites.
+- Nunca repita tiros já efetuados.
+
+3. Estratégia Geral
+Enquanto não houver acertos:
+- espalhe os tiros pelo tabuleiro para maximizar a cobertura.
+- use um padrão de espaçamento (ex: saltar casas) para procurar navios maiores.
+
+4. Estratégia após um acerto
+Se um tiro acertar num navio:
+- na rajada seguinte dispare nas posições adjacentes:
+  Norte, Sul, Este e Oeste.
+- isso permite descobrir a orientação do navio.
+
+5. Afundar um navio
+Quando descobrir a orientação do navio:
+- continue a disparar nessa direção até o navio ser afundado.
+
+6. Navio Afundado
+Quando um navio for afundado:
+- marque todas as casas à volta (incluindo diagonais) como água.
+- nunca dispare nessas posições, pois os navios não podem tocar-se.
+
+7. Exceção do Galeão
+O Galeão tem forma de T.
+Por isso, mesmo que existam diagonais ocupadas após um acerto, considere a possibilidade de fazer parte da forma do Galeão.
+
+8. Geração da Rajada
+Cada jogada deve gerar exatamente 3 tiros no seguinte formato JSON:
+
+[
+ {"row": "A", "column": 5},
+ {"row": "C", "column": 7},
+ {"row": "F", "column": 2}
+]
+
+Nunca gere tiros repetidos ou fora do tabuleiro.
+
+9. Objetivo
+Use toda a informação do Diário de Bordo para maximizar a probabilidade de encontrar e afundar os navios inimigos o mais rapidamente possível.
+
+Exemplo de raciocínio estratégico:
+
+Rajada 1:
+[
+ {"row": "E", "column": 5},
+ {"row": "F", "column": 5},
+ {"row": "G", "column": 5}
+]
+
+Resultado:
+Acerto numa Nau em F5.
+
+Estratégia seguinte:
+Na rajada seguinte disparar em E5, G5, F4 ou F6 para descobrir a orientação do navio.
+
+## PRINTS de uma conversa de exemplo com o LLM a jogar
+Durante este teste foi utilizado um prompt melhorado para treinar o LLM a jogar Batalha Naval de forma estratégica.
+
+O LLM mantém um Diário de Bordo, onde regista cada rajada de tiros e o resultado obtido (acertos, água ou navios afundados). Esta memória permite evitar tiros repetidos e ajuda a decidir as próximas jogadas.
+
+A estratégia observada foi a seguinte:
+
+O LLM começa com uma rajada inicial dispersa, para aumentar a probabilidade de encontrar um navio.
+
+Quando ocorre um acerto, o LLM dispara nas posições adjacentes (Norte, Sul, Este e Oeste) para descobrir a orientação do navio.
+
+O modelo utiliza a informação acumulada para deduzir a forma do navio e tentar afundá-lo com o menor número de tiros possível.
+
+O LLM também evita coordenadas já testadas ou fora do tabuleiro, respeitando as regras definidas no prompt.
+
+Nos prints abaixo é possível observar o LLM a:
+
+Disparar a primeira rajada de tiros.
+
+Registar os resultados no Diário de Bordo.
+
+Ajustar a estratégia após obter acertos.
+
+Continuar a procurar as restantes posições do navio.
+
+Este teste demonstra que o prompt permite ao LLM jogar de forma mais inteligente do que uma estratégia aleatória, utilizando memória e raciocínio sobre o estado do tabuleiro.
+
+<img width="597" height="665" alt="Print_1" src="https://github.com/user-attachments/assets/7e14bc9e-4672-4e03-ad28-e3ce1fffd45f" />
+
+<img width="598" height="797" alt="Print2" src="https://github.com/user-attachments/assets/cb0f3483-a483-4f90-8229-ea1f82f47136" />
+
+<img width="600" height="868" alt="Print3" src="https://github.com/user-attachments/assets/8d456d76-5109-46b4-b586-1b592e367e48" />
+
+<img width="614" height="739" alt="Print4" src="https://github.com/user-attachments/assets/bf652dac-d0be-4c6d-84bc-aed624110527" />
+
+
