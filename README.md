@@ -238,7 +238,38 @@ Estratégia seguinte:
 Na rajada seguinte disparar em E5, G5, F4 ou F6 para descobrir a orientação do navio.
 
 ## PRINTS de uma conversa de exemplo com o LLM a jogar
+Durante este teste foi utilizado um prompt melhorado para treinar o LLM a jogar Batalha Naval de forma estratégica.
+
+O LLM mantém um Diário de Bordo, onde regista cada rajada de tiros e o resultado obtido (acertos, água ou navios afundados). Esta memória permite evitar tiros repetidos e ajuda a decidir as próximas jogadas.
+
+A estratégia observada foi a seguinte:
+
+O LLM começa com uma rajada inicial dispersa, para aumentar a probabilidade de encontrar um navio.
+
+Quando ocorre um acerto, o LLM dispara nas posições adjacentes (Norte, Sul, Este e Oeste) para descobrir a orientação do navio.
+
+O modelo utiliza a informação acumulada para deduzir a forma do navio e tentar afundá-lo com o menor número de tiros possível.
+
+O LLM também evita coordenadas já testadas ou fora do tabuleiro, respeitando as regras definidas no prompt.
+
+Nos prints abaixo é possível observar o LLM a:
+
+Disparar a primeira rajada de tiros.
+
+Registar os resultados no Diário de Bordo.
+
+Ajustar a estratégia após obter acertos.
+
+Continuar a procurar as restantes posições do navio.
+
+Este teste demonstra que o prompt permite ao LLM jogar de forma mais inteligente do que uma estratégia aleatória, utilizando memória e raciocínio sobre o estado do tabuleiro.
 
 <img width="597" height="665" alt="Print_1" src="https://github.com/user-attachments/assets/7e14bc9e-4672-4e03-ad28-e3ce1fffd45f" />
+
+<img width="598" height="797" alt="Print2" src="https://github.com/user-attachments/assets/cb0f3483-a483-4f90-8229-ea1f82f47136" />
+
+<img width="600" height="868" alt="Print3" src="https://github.com/user-attachments/assets/8d456d76-5109-46b4-b586-1b592e367e48" />
+
+<img width="614" height="739" alt="Print4" src="https://github.com/user-attachments/assets/bf652dac-d0be-4c6d-84bc-aed624110527" />
 
 
