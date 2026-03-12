@@ -51,6 +51,8 @@ public class Tasks {
 		System.out.print("> ");
 		Scanner in = new Scanner(System.in);
 		String command = in.next();
+		StopWatch turnWatch = new StopWatch();
+		turnWatch.start();
 		while (!command.equals(DESISTIR)) {
 
 			switch (command) {
@@ -82,13 +84,14 @@ public class Tasks {
 				case RAJADA:
 					if (game != null) {
 
-						StopWatch watch = new StopWatch();
-						watch.start();
+						turnWatch.stop();
+						double segundos = turnWatch.getTime() / 1000.0;
+						System.out.printf("Tempo até esta jogada: %.2f s%n", segundos);
+
+						turnWatch.reset();
+						turnWatch.start();
 
 						game.readEnemyFire(in);
-
-						watch.stop();
-						System.out.println("Tempo da jogada: " + watch.getTime() + " ms");
 
 						myFleet.printStatus();
 						game.printMyBoard(true, false);
