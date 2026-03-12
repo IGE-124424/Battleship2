@@ -434,6 +434,38 @@ public class Game implements IGame
 		Game.printBoard(this.alienFleet, this.myMoves, show_shots, show_legend);
 	}
 
+    public char[][] getBoard(boolean showShots) {
+
+        char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+
+        for (int r = 0; r < BOARD_SIZE; r++)
+            for (int c = 0; c < BOARD_SIZE; c++)
+                map[r][c] = '.';
+
+        for (IShip ship : myFleet.getShips()) {
+            for (IPosition pos : ship.getPositions()) {
+                map[pos.getRow()][pos.getColumn()] = '#';
+            }
+        }
+
+        if (showShots) {
+            for (IMove move : alienMoves) {
+                for (IPosition shot : move.getShots()) {
+
+                    int row = shot.getRow();
+                    int col = shot.getColumn();
+
+                    if (map[row][col] == '#')
+                        map[row][col] = '*';
+                    else
+                        map[row][col] = 'o';
+                }
+            }
+        }
+
+        return map;
+    }
+
     public void over() {
 
         String resultado = "Hits: " + this.countHits +

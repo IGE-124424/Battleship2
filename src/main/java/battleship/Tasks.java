@@ -55,7 +55,12 @@ public class Tasks {
 
 			switch (command) {
                 case GUI:
-                    BoardGUI.launchBoard();
+                    if (game != null) {
+                        BoardGUI.setGame((Game) game);
+                        BoardGUI.launchBoard();
+                    } else {
+                        System.out.println("Primeiro gera uma frota!");
+                    }
                     break;
 				case GERAFROTA:
 					myFleet = Fleet.createRandom();
