@@ -21,8 +21,10 @@ public class Scoreboard {
             System.out.println("Nenhum jogo registado.");
         }
 
+        int i = 1;
         for (String r : resultados) {
-            System.out.println(r);
+            System.out.println("Jogo " + i + ": " + r);
+            i++;
         }
 
         System.out.println("======================");
