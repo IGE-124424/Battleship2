@@ -1,6 +1,6 @@
 package battleship;
-import org.apache.commons.lang3.time.StopWatch;
 
+import org.apache.commons.lang3.time.StopWatch;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -10,283 +10,266 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * The type Tasks.
- */
 public class Tasks {
-	/**
-	 * The constant LOGGER.
-	 */
-	private static final Logger LOGGER = LogManager.getLogger();
 
-	/**
-	 * The constant GOODBYE_MESSAGE.
-	 */
-	private static final String GOODBYE_MESSAGE = "Bons ventos!";
+    private static final Logger LOGGER = LogManager.getLogger();
 
-	/**
-	 * Strings to be used by the user
-	 */
-	private static final String AJUDA = "ajuda";
-	private static final String GERAFROTA = "gerafrota";
-	private static final String LEFROTA = "lefrota";
-	private static final String DESISTIR = "desisto";
-	private static final String RAJADA = "rajada";
-	private static final String TIROS = "tiros";
-	private static final String MAPA = "mapa";
-	private static final String STATUS = "estado";
-	private static final String SIMULA = "simula";
+    private static final String GOODBYE_MESSAGE = "Bons ventos!";
 
-	/**
-	 * This task also tests the fighting element of a round of three shots
-	 */
-	public static void menu() {
+    private static final String GUI = "gui";
+    private static final String AJUDA = "ajuda";
+    private static final String GERAFROTA = "gerafrota";
+    private static final String LEFROTA = "lefrota";
+    private static final String DESISTIR = "desisto";
+    private static final String RAJADA = "rajada";
+    private static final String TIROS = "tiros";
+    private static final String MAPA = "mapa";
+    private static final String STATUS = "estado";
+    private static final String SIMULA = "simula";
 
-		IFleet myFleet = null;
-		IGame game = null;
-		menuHelp();
-		List<String> logJogadas = new ArrayList<>();
+    public static void menu() {
 
-		System.out.print("> ");
-		Scanner in = new Scanner(System.in);
-		String command = in.next();
+        IFleet myFleet = null;
+        IGame game = null;
 
-		while (!command.equals(DESISTIR)) {
+        List<String> logJogadas = new ArrayList<>();
+        List<String> scoreboard = new ArrayList<>();
 
-			switch (command) {
-				case GERAFROTA:
-					myFleet = Fleet.createRandom();
-					game = new Game(myFleet);
-					logJogadas.add("Frota aleatória gerada.");
-					game.printMyBoard(false, true);
-					break;
+        menuHelp();
 
-				case LEFROTA:
-					myFleet = buildFleet(in);
-					game = new Game(myFleet);
-					logJogadas.add("Frota personalizada carregada.");
-					game.printMyBoard(false, true);
-					break;
+        Scanner in = new Scanner(System.in);
 
-				case STATUS:
-					if (myFleet != null) {
-						myFleet.printStatus();
-					}
-					break;
+        StopWatch turnWatch = new StopWatch();
+        turnWatch.start();
 
-				case MAPA:
-					if (myFleet != null && game != null) {
-						game.printMyBoard(false, true);
-					}
-					break;
+        while (true) {
 
-				case RAJADA:
-					if (game != null) {
-						String jogada = game.readEnemyFire(in);
-						if (jogada != null && !jogada.isBlank()) {
-							logJogadas.add(jogada);
-						}
+            System.out.print("> ");
+            String command = in.next();
 
-						myFleet.printStatus();
-						game.printMyBoard(true, false);
+            if (command.equals(DESISTIR)) {
+                break;
+            }
 
-						if (game.getRemainingShips() == 0) {
-							game.over();
+            switch (command) {
 
-							try {
-								Path pdf = PdfReportGenerator.generateMovesReport(
-										logJogadas,
-										Path.of("target", "jogadas-" + System.currentTimeMillis() + ".pdf")
-								);
-								System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
-							} catch (Exception e) {
-								System.out.println("Erro ao gerar PDF: " + e.getMessage());
-								e.printStackTrace();
-							}
+                case GUI:
+                    if (game != null) {
+                        BoardGUI.setGame((Game) game);
+                        BoardGUI.launchBoard();
+                    } else {
+                        System.out.println("Primeiro gera uma frota!");
+                    }
+                    break;
 
-							System.exit(0);
-						}
-					}
-					break;
+                case GERAFROTA:
+                    myFleet = Fleet.createRandom();
+                    game = new Game(myFleet);
+                    logJogadas.clear();
+                    game.printMyBoard(false, true);
+                    break;
 
-				case SIMULA:
-					if (game != null) {
-						while (game.getRemainingShips() > 0) {
-							String jogada = game.randomEnemyFire();
-							if (jogada != null && !jogada.isBlank()) {
-								logJogadas.add(jogada);
-							}
+                case LEFROTA:
+                    myFleet = buildFleet(in);
+                    game = new Game(myFleet);
+                    logJogadas.clear();
+                    game.printMyBoard(false, true);
+                    break;
 
-							myFleet.printStatus();
-							game.printMyBoard(true, false);
+                case STATUS:
+                    if (myFleet != null)
+                        myFleet.printStatus();
+                    else
+                        System.out.println("Nenhuma frota carregada.");
+                    break;
 
-							try {
-								Thread.sleep(3000);
-							} catch (InterruptedException e) {
-								Thread.currentThread().interrupt();
-							}
-						}
+                case MAPA:
+                    if (game != null)
+                        game.printMyBoard(false, true);
+                    else
+                        System.out.println("Nenhum jogo iniciado.");
+                    break;
 
-						if (game.getRemainingShips() == 0) {
-							game.over();
+                case RAJADA:
 
-							try {
-								Path pdf = PdfReportGenerator.generateMovesReport(
-										logJogadas,
-										Path.of("target", "jogadas-" + System.currentTimeMillis() + ".pdf")
-								);
-								System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
-							} catch (Exception e) {
-								System.out.println("Erro ao gerar PDF: " + e.getMessage());
-								e.printStackTrace();
-							}
+                    if (game != null) {
 
-							System.exit(0);
-						}
-					}
-					break;
+                        turnWatch.stop();
+                        double segundos = turnWatch.getTime() / 1000.0;
+                        System.out.printf("Tempo até esta jogada: %.2f s%n", segundos);
 
-				case TIROS:
-					if (game != null) {
-						game.printMyBoard(true, true);
-					}
-					break;
+                        turnWatch.reset();
+                        turnWatch.start();
 
-				case AJUDA:
-					menuHelp();
-					break;
+                        String jogada = game.readEnemyFire(in);
 
-				default:
-					System.out.println("Que comando é esse??? Repete ...");
-			}
+                        if (jogada != null)
+                            logJogadas.add(jogada);
 
-			System.out.print("> ");
-			command = in.next();
-		}
+                        myFleet.printStatus();
+                        game.printMyBoard(true, false);
 
-		try {
-			Path pdf = PdfReportGenerator.generateMovesReport(
-					logJogadas,
-					Path.of("target", "jogadas-" + System.currentTimeMillis() + ".pdf")
-			);
-			System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
-		} catch (Exception e) {
-			System.out.println("Erro ao gerar PDF: " + e.getMessage());
-			e.printStackTrace();
-		}
+                        if (game.getRemainingShips() == 0) {
 
-		System.out.println(GOODBYE_MESSAGE);
-	}
+                            game.over();
 
-	/**
-	 * This function provides help information about the menu commands.
-	 */
-	public static void menuHelp() {
-		System.out.println("======================= AJUDA DO MENU =========================");
-		System.out.println("Digite um dos comandos abaixo para interagir com o jogo:");
-		System.out.println("- " + GERAFROTA + ": Gera uma frota aleatória de navios.");
-		System.out.println("- " + LEFROTA + ": Permite criar e carregar uma frota personalizada.");
-		System.out.println("- " + STATUS + ": Mostra o status atual da frota.)");
-		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
-		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
-		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
-		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
-		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
-		System.out.println("===============================================================");
-	}
+                            scoreboard.add("Jogo terminado — total jogadas: " + logJogadas.size());
 
-	/**
-	 * This operation allows the build up of a fleet, given user data
-	 *
-	 * @param in The scanner to read from
-	 * @return The fleet that has been built
-	 */
-	public static Fleet buildFleet(Scanner in) {
+                            gerarPdf(logJogadas);
 
-		assert in != null;
+                            game = null;
+                            myFleet = null;
+                        }
 
-		Fleet fleet = new Fleet();
-		int i = 0; // i represents the total of successfully created ships
-		while (i < Fleet.FLEET_SIZE) {
-			IShip s = readShip(in);
-			if (s != null) {
-				boolean success = fleet.addShip(s);
-				if (success) {
-					i++;
-				} else {
-					LOGGER.info("Falha na criacao de {} {} {}", s.getCategory(), s.getBearing(), s.getPosition());
-				}
-			} else {
-				LOGGER.info("Navio desconhecido!");
-			}
-		}
-		LOGGER.info("{} navios adicionados com sucesso!", i);
-		return fleet;
-	}
+                    } else {
+                        System.out.println("Primeiro precisa gerar ou carregar uma frota.");
+                    }
 
-	/**
-	 * This operation reads data about a ship, build it and returns it
-	 *
-	 * @param in The scanner to read from
-	 * @return The created ship based on the data that has been read
-	 */
-	public static Ship readShip(Scanner in) {
+                    break;
 
-		assert in != null;
+                case SIMULA:
 
-		String shipKind = in.next();
-		Position pos = readPosition(in);
-		char c = in.next().charAt(0);
-		Compass bearing = Compass.charToCompass(c);
-		return Ship.buildShip(shipKind, bearing, pos);
-	}
+                    if (game != null) {
 
-	/**
-	 * This operation allows reading a position in the map
-	 *
-	 * @param in The scanner to read from
-	 * @return The position that has been read
-	 */
-	public static Position readPosition(Scanner in) {
+                        while (game.getRemainingShips() > 0) {
 
-		assert in != null;
+                            String jogada = game.randomEnemyFire();
 
-		int row = in.nextInt();
-		int column = in.nextInt();
-		return new Position(row, column);
-	}
+                            if (jogada != null)
+                                logJogadas.add(jogada);
 
-	/**
-	 * This operation allows reading a position in the map
-	 *
-	 * @param in The scanner to read from
-	 * @return The classic position that has been read
-	 */
-	public static IPosition readClassicPosition(@NotNull Scanner in) {
-		if (!in.hasNext()) {
-			throw new IllegalArgumentException("Nenhuma posição válida encontrada!");
-		}
+                            myFleet.printStatus();
+                            game.printMyBoard(true, false);
 
-		String part1 = in.next();
-		String part2 = null;
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                            }
+                        }
 
-		if (in.hasNextInt()) {
-			part2 = in.next();
-		}
+                        game.over();
 
-		String input = (part2 != null) ? part1 + part2 : part1;
-		input = input.toUpperCase();
+                        scoreboard.add("Simulação terminada — total jogadas: " + logJogadas.size());
 
-		if (input.matches("[A-Z]\\d+")) {
-			char column = input.charAt(0);
-			int row = Integer.parseInt(input.substring(1));
-			return new Position(column, row);
-		} else if (part2 != null && part1.matches("[A-Z]") && part2.matches("\\d+")) {
-			char column = part1.charAt(0);
-			int row = Integer.parseInt(part2);
-			return new Position(column, row);
-		} else {
-			throw new IllegalArgumentException("Formato inválido. Use 'A3', 'A 3' ou similar.");
-		}
-	}
+                        gerarPdf(logJogadas);
+
+                        game = null;
+                        myFleet = null;
+
+                    } else {
+                        System.out.println("Primeiro precisa gerar ou carregar uma frota.");
+                    }
+
+                    break;
+
+                case TIROS:
+
+                    if (game != null)
+                        game.printMyBoard(true, true);
+                    else
+                        System.out.println("Nenhum jogo iniciado.");
+
+                    break;
+
+                case AJUDA:
+                    menuHelp();
+                    break;
+
+                default:
+                    System.out.println("Que comando é esse??? Repete ...");
+            }
+        }
+
+        System.out.println("\n===== SCOREBOARD =====");
+
+        for (String s : scoreboard)
+            System.out.println(s);
+
+        System.out.println(GOODBYE_MESSAGE);
+    }
+
+    private static void gerarPdf(List<String> logJogadas) {
+
+        try {
+            Path pdf = PdfReportGenerator.generateMovesReport(
+                    logJogadas,
+                    Path.of("target", "jogadas-" + System.currentTimeMillis() + ".pdf")
+            );
+
+            System.out.println("PDF gerado em: " + pdf.toAbsolutePath());
+
+        } catch (Exception e) {
+            System.out.println("Erro ao gerar PDF: " + e.getMessage());
+        }
+    }
+
+    public static void menuHelp() {
+
+        System.out.println("======================= AJUDA DO MENU =========================");
+        System.out.println("- gui");
+        System.out.println("- gerafrota");
+        System.out.println("- lefrota");
+        System.out.println("- estado");
+        System.out.println("- mapa");
+        System.out.println("- rajada");
+        System.out.println("- simula");
+        System.out.println("- tiros");
+        System.out.println("- desisto");
+        System.out.println("===============================================================");
+    }
+
+    public static Fleet buildFleet(Scanner in) {
+
+        Fleet fleet = new Fleet();
+        int i = 0;
+
+        while (i < Fleet.FLEET_SIZE) {
+
+            IShip s = readShip(in);
+
+            if (s != null && fleet.addShip(s))
+                i++;
+        }
+
+        return fleet;
+    }
+
+    public static Ship readShip(Scanner in) {
+
+        String shipKind = in.next();
+        Position pos = readPosition(in);
+        char c = in.next().charAt(0);
+        Compass bearing = Compass.charToCompass(c);
+
+        return Ship.buildShip(shipKind, bearing, pos);
+    }
+
+    public static Position readPosition(Scanner in) {
+
+        int row = in.nextInt();
+        int column = in.nextInt();
+
+        return new Position(row, column);
+    }
+
+    public static IPosition readClassicPosition(@NotNull Scanner in) {
+
+        String part1 = in.next();
+        String part2 = in.hasNextInt() ? in.next() : null;
+
+        String input = (part2 != null) ? part1 + part2 : part1;
+
+        input = input.toUpperCase();
+
+        if (input.matches("[A-Z]\\d+")) {
+
+            char column = input.charAt(0);
+            int row = Integer.parseInt(input.substring(1));
+
+            return new Position(column, row);
+        }
+
+        throw new IllegalArgumentException("Formato inválido");
+    }
 }

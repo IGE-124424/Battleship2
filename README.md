@@ -1,3 +1,7 @@
+## LINK DO O VIDEO PARTE D
+https://youtu.be/B0Qj32vpSsI
+
+
 ## Project Documentation
 
 The project documentation generated with Javadoc is available at:
