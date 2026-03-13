@@ -58,7 +58,7 @@ public class BoardGUI extends Application {
             }
         }
 
-                Scene scene = new Scene(grid);
+        Scene scene = new Scene(grid);
 
         stage.setTitle("Battleship Board");
         stage.setScene(scene);
