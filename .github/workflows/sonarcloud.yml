@@ -22,5 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          sonar.projectKey: "ige-122424"
+          sonar.organization: "Rodrigo Carraça"
 
 
