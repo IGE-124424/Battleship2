@@ -4,7 +4,7 @@ name: SonarQube Cloud Analysis
 on:
   push:
     branches:
-      - branch_12248
+      - branch_122486
   pull_request:
     branches:
       - main
