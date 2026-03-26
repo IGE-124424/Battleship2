@@ -445,6 +445,7 @@ public class Game implements IGame
         for (IShip ship : myFleet.getShips()) {
             for (IPosition pos : ship.getPositions()) {
                 map[pos.getRow()][pos.getColumn()] = SHIP_MARKER;
+
             }
         }
 
