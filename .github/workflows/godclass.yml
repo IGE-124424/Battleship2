@@ -1,0 +1,16 @@
+#  124424 - Rodrigo Carraça
+name: God Class Quality Gate
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Qodana Scan
+        uses: JetBrains/qodana-action@v2024.1
