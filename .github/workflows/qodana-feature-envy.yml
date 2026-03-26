@@ -1,0 +1,32 @@
+# Número de Aluno: 122486 - Nome: Gonçalo Ordaz
+name: Qodana Quality Gate - Feature Envy Detection
+
+on:
+  push:
+    branches:
+      - branch_12248
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2023.3
+        with:
+          # O fail-threshold é o teu Quality Gate principal.
+          # Vai fazer o workflow falhar se encontrar 1 ou mais instâncias deste cheiro.
+          args: --fail-threshold, 1
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }} # Se o teu projeto exigir token, caso contrário podes omitir

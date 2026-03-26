@@ -1,0 +1,13 @@
+version: "1.0"
+
+# Especifica o perfil base de inspeções
+profile:
+  name: qodana.starter
+
+# Obriga o Qodana a procurar o Feature Envy
+include:
+  - name: FeatureEnvy
+
+# Mantém o linter e a versão do Java que o IntelliJ detetou
+projectJDK: "25"
+linter: jetbrains/qodana-jvm:2025.3
