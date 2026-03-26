@@ -1,11 +1,2 @@
-version: "1.0"
-
 profile:
   name: qodana.recommended
-
-failThreshold: 1
-
-include:
-  - name: ClassTooComplex
-  - name: MethodWithTooManyParameters
-  - name: ClassWithTooManyMethods
