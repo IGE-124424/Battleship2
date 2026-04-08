@@ -1,5 +1,11 @@
 # Battleship Game
 
+## Excel 
+Comentário feito no excel a nível da classe Scoreboard que criei para a minha funcionalidade implemnetada:
+<img width="1904" height="849" alt="image" src="https://github.com/user-attachments/assets/2ac94128-e79b-4b0d-bc1c-335274604632" />
+
+https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
+
 🎥 **Video Demonstration**  
 https://youtu.be/XHCJwKQSLkE
 
