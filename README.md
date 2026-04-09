@@ -1,7 +1,7 @@
 # Battleship Game
 ## Excel (Gonçalo Ordaz)
 Comentário feito no excel a nível da classe PDFReportGenerator que criei para a minha funcionalidade implementada:
-alt="image" src="<img width="1919" height="801" alt="image" src="https://github.com/user-attachments/assets/c93cc204-d818-4e97-82a7-d9bab164058d" />
+src="<img width="1919" height="801" alt="image" src="https://github.com/user-attachments/assets/c93cc204-d818-4e97-82a7-d9bab164058d" />
  />
 
 https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
