@@ -1,4 +1,4 @@
-# Battleship Game
+  # Battleship Game
 ## Excel (Gonçalo Ordaz)
 Comentário feito no excel a nível da classe PDFReportGenerator que criei para a minha funcionalidade implementada:
 "<img width="1919" height="801" alt="image" src="https://github.com/user-attachments/assets/c93cc204-d818-4e97-82a7-d9bab164058d" />
@@ -7,12 +7,20 @@ Comentário feito no excel a nível da classe PDFReportGenerator que criei para 
 https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
 
 
-
 ## Excel (Bartolomeu)
 Comentário feito no excel a nível da classe Scoreboard que criei para a minha funcionalidade implemnetada:
 <img width="1904" height="849" alt="image" src="https://github.com/user-attachments/assets/2ac94128-e79b-4b0d-bc1c-335274604632" />
 
 https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
+
+
+## Excel (Miguel Paiva)
+
+Comentário feito no excel a nível da classe BoardGUI que criei para a minha funcionalidade implementada:
+<img width="1995" height="1105" alt="Captura de ecrã 2026-04-10 022359" src="https://github.com/user-attachments/assets/288b4096-7013-4215-8b8b-d35d084e9c6c" />
+
+https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
+
 
 🎥 **Video Demonstration**  
 https://youtu.be/XHCJwKQSLkE
