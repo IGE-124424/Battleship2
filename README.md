@@ -1,4 +1,17 @@
   # Battleship Game
+
+  EXCEL(Rodrigo Carraça)
+  Comentário feito no excel a nível da alteração da classe tasks que alterei para a minha funcionalidade implemnetada:
+  A funcionalidade de relógio de jogada foi implementada na classe Tasks, permitindo medir o tempo decorrido entre jogadas consecutivas durante o jogo. Esta funcionalidade recorre à utilização da classe StopWatch, iniciando a contagem no início da execução e sendo reiniciada a cada jogada efetuada no comando "rajada". Antes de cada nova jogada, o tempo decorrido é calculado e apresentado ao utilizador, fornecendo assim uma indicação clara da duração de cada turno.
+
+Do ponto de vista da complexidade, a lógica introduzida é simples e bem delimitada, apresentando baixa complexidade ciclomática (CC baixa), uma vez que se baseia apenas em operações sequenciais (start, stop, reset) sem introdução de estruturas de decisão complexas. A funcionalidade encontra-se bem integrada no fluxo existente do jogo, sem impactar negativamente a legibilidade do código.
+
+Além disso, a utilização de uma biblioteca externa (Apache Commons StopWatch) contribui para uma implementação mais robusta e fiável, evitando soluções manuais mais propensas a erro.
+
+Como possível melhoria, poderia ser interessante armazenar também o tempo de cada jogada (por exemplo, numa lista associada ao log de jogadas) para permitir análises futuras, como cálculo de tempo médio por jogada ou inclusão dessa informação no relatório PDF.
+
+Globalmente, a funcionalidade acrescenta valor ao jogo, introduzindo uma dimensão temporal que melhora a experiência do utilizador e a análise do desempenho durante a partida.
+  
 ## Excel (Gonçalo Ordaz)
 Comentário feito no excel a nível da classe PDFReportGenerator que criei para a minha funcionalidade implementada:
 "<img width="1919" height="801" alt="image" src="https://github.com/user-attachments/assets/c93cc204-d818-4e97-82a7-d9bab164058d" />
