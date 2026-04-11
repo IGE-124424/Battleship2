@@ -2,6 +2,8 @@
 
  ## Excel (Rodrigo Carraça)
   Comentário feito no excel a nível da alteração da classe tasks que alterei para a minha funcionalidade implemnetada:
+  <img width="1917" height="654" alt="{43E8D1A5-45AE-4530-ACFF-53CD155593BE}" src="https://github.com/user-attachments/assets/d50eaed7-346e-4349-ba05-65e39163ab3b" />
+
   A funcionalidade de relógio de jogada foi implementada na classe Tasks, permitindo medir o tempo decorrido entre jogadas consecutivas durante o jogo. Esta funcionalidade recorre à utilização da classe StopWatch, iniciando a contagem no início da execução e sendo reiniciada a cada jogada efetuada no comando "rajada". Antes de cada nova jogada, o tempo decorrido é calculado e apresentado ao utilizador, fornecendo assim uma indicação clara da duração de cada turno.
 
 Do ponto de vista da complexidade, a lógica introduzida é simples e bem delimitada, apresentando baixa complexidade ciclomática (CC baixa), uma vez que se baseia apenas em operações sequenciais (start, stop, reset) sem introdução de estruturas de decisão complexas. A funcionalidade encontra-se bem integrada no fluxo existente do jogo, sem impactar negativamente a legibilidade do código.
