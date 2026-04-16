@@ -1,5 +1,21 @@
   # Battleship Game
 
+
+
+## GitHub Actions
+
+Este projeto utiliza GitHub Actions para integração contínua.
+
+Sempre que é feito um push para o ramo main, o workflow executa automaticamente:
+
+- Compilação do projeto
+- Execução dos testes unitários com Maven
+
+Comando utilizado:
+mvn clean verify
+
+
+
  ## Excel (Rodrigo Carraça)
   Comentário feito no excel a nível da alteração da classe tasks que alterei para a minha funcionalidade implemnetada:
   <img width="1917" height="654" alt="{43E8D1A5-45AE-4530-ACFF-53CD155593BE}" src="https://github.com/user-attachments/assets/d50eaed7-346e-4349-ba05-65e39163ab3b" />
