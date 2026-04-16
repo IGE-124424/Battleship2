@@ -1,3 +1,53 @@
+  # Battleship Game
+
+ ## Excel (Rodrigo Carraça)
+  Comentário feito no excel a nível da alteração da classe tasks que alterei para a minha funcionalidade implemnetada:
+  <img width="1917" height="654" alt="{43E8D1A5-45AE-4530-ACFF-53CD155593BE}" src="https://github.com/user-attachments/assets/d50eaed7-346e-4349-ba05-65e39163ab3b" />
+
+  A funcionalidade de relógio de jogada foi implementada na classe Tasks, permitindo medir o tempo decorrido entre jogadas consecutivas durante o jogo. Esta funcionalidade recorre à utilização da classe StopWatch, iniciando a contagem no início da execução e sendo reiniciada a cada jogada efetuada no comando "rajada". Antes de cada nova jogada, o tempo decorrido é calculado e apresentado ao utilizador, fornecendo assim uma indicação clara da duração de cada turno.
+
+Do ponto de vista da complexidade, a lógica introduzida é simples e bem delimitada, apresentando baixa complexidade ciclomática (CC baixa), uma vez que se baseia apenas em operações sequenciais (start, stop, reset) sem introdução de estruturas de decisão complexas. A funcionalidade encontra-se bem integrada no fluxo existente do jogo, sem impactar negativamente a legibilidade do código.
+
+Além disso, a utilização de uma biblioteca externa (Apache Commons StopWatch) contribui para uma implementação mais robusta e fiável, evitando soluções manuais mais propensas a erro.
+
+Como possível melhoria, poderia ser interessante armazenar também o tempo de cada jogada (por exemplo, numa lista associada ao log de jogadas) para permitir análises futuras, como cálculo de tempo médio por jogada ou inclusão dessa informação no relatório PDF.
+
+Globalmente, a funcionalidade acrescenta valor ao jogo, introduzindo uma dimensão temporal que melhora a experiência do utilizador e a análise do desempenho durante a partida.
+  
+## Excel (Gonçalo Ordaz)
+Comentário feito no excel a nível da classe PDFReportGenerator que criei para a minha funcionalidade implementada:
+"<img width="1919" height="801" alt="image" src="https://github.com/user-attachments/assets/c93cc204-d818-4e97-82a7-d9bab164058d" />
+ />
+
+https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
+
+
+## Excel (Bartolomeu)
+Comentário feito no excel a nível da classe Scoreboard que criei para a minha funcionalidade implemnetada:
+-Commit fd264a0
+
+A funcionalidade de Scoreboard de jogos passados foi implementada principalmente através da criação da classe Scoreboard, sendo também necessárias pequenas alterações nas classes Game e Tasks para permitir o registo e a apresentação dos resultados. Do ponto de vista das métricas, a Scoreboard apresenta uma dimensão reduzida (CLOC=17, NCSS=15, NOM=2), o que mostra que a solução foi mantida simples e bem delimitada. A complexidade da classe também é baixa (WMC=4, CCC=2), indicando que a lógica introduzida é relativamente fácil de compreender e manter. Ao nível dos métodos, mostrarResultados() concentra a maior parte da lógica, apresentando valores superiores a addResultado(String), mas ainda assim controlados (LOC=14, CC=3). O acoplamento observado (CBO=7, RFC=7) é aceitável, uma vez que esta funcionalidade precisa de interagir com outras partes do sistema. Globalmente, a implementação contribuiu para uma melhor organização do código, ao separar numa classe própria a responsabilidade de guardar e apresentar os resultados dos jogos anteriores.
+<img width="1904" height="849" alt="image" src="https://github.com/user-attachments/assets/2ac94128-e79b-4b0d-bc1c-335274604632" />
+
+https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
+
+
+## Excel (Miguel Paiva)
+
+Comentário feito no excel a nível da classe BoardGUI que criei para a minha funcionalidade implementada:
+<img width="1995" height="1105" alt="Captura de ecrã 2026-04-10 022359" src="https://github.com/user-attachments/assets/288b4096-7013-4215-8b8b-d35d084e9c6c" />
+
+https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
+
+
+
+
+
+
+🎥 **Video Demonstration**  
+https://youtu.be/XHCJwKQSLkE
+
+
 ## LINK DO O VIDEO PARTE D
 https://youtu.be/B0Qj32vpSsI
 
