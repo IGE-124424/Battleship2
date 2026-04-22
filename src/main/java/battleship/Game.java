@@ -11,7 +11,7 @@ public class Game implements IGame
 	/**
 	 * Prints the game board by representing the positions of ships, adjacent tiles,
 	 * shots, and other game elements onto the console. The method also optionally
-	 * displays shot positions and a legend explaining the symbols used on the board.
+	 * displays shot positions and a legend explaining the symbols usexd on the board.
 	 *
 	 * @param fleet       the fleet of ships to be displayed on the board. Ships are marked
 	 *                    and their positions are shown according to their placement.
