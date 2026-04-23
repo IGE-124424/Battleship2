@@ -1,6 +1,9 @@
 package battleship;
 
 import org.junit.jupiter.api.*;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -27,7 +30,7 @@ public class PositionTest {
 	@BeforeEach
 	void setUp() {
 		position = new Position(2, 3);
-	//	position = new Position('C', 4);
+		//	position = new Position('C', 4);
 	}
 
 	@AfterEach
@@ -182,4 +185,92 @@ public class PositionTest {
 				"Incorrect string representation: expected '" + expected +
 						"' but got '" + position.toString() + "'");
 	}
+	@DisplayName("occupy deve marcar a posição como ocupada")
+	@Test
+	void occupyShouldSetOccupiedToTrue() {
+		Position p = new Position(1, 1);
+
+		p.occupy();
+
+		assertTrue(p.isOccupied());
+	}
+	@DisplayName("shoot deve marcar a posição como atingida")
+	@Test
+	void shootShouldSetHitToTrue() {
+		Position p = new Position(1, 1);
+
+		p.shoot();
+
+		assertTrue(p.isHit());
+	}
+
+	@DisplayName("posição central deve ter 8 adjacentes")
+	@Test
+	void adjacentPositionsCenterShouldReturnEight() {
+		Position p = new Position(5, 5);
+
+		List<IPosition> adj = p.adjacentPositions();
+
+		assertEquals(8, adj.size());
+	}
+	@DisplayName("posição no canto deve ter 3 adjacentes")
+	@Test
+	void adjacentPositionsCornerShouldReturnThree() {
+		Position p = new Position(0, 0);
+
+		List<IPosition> adj = p.adjacentPositions();
+
+		assertEquals(3, adj.size());
+	}
+	@DisplayName("todas as posições adjacentes devem ser válidas")
+	@Test
+	void adjacentPositionsShouldBeInsideBoard() {
+		Position p = new Position(0, 0);
+
+		List<IPosition> adj = p.adjacentPositions();
+
+		for (IPosition pos : adj) {
+			assertTrue(pos.isInside());
+		}
+	}
+	@DisplayName("randomPosition deve devolver posição válida")
+	@Test
+	void randomPositionShouldBeInsideBoard() {
+		Position p = Position.randomPosition();
+
+		assertNotNull(p);
+		assertTrue(p.isInside());
+	}
+	@DisplayName("O construtor clássico deve converter letra e número corretamente")
+	@Test
+	void classicConstructorShouldConvertCoordinatesCorrectly() {
+		Position position = new Position('C', 4);
+
+		assertEquals(2, position.getRow());
+		assertEquals(3, position.getColumn());
+		assertEquals('C', position.getClassicRow());
+		assertEquals(4, position.getClassicColumn());
+		assertFalse(position.isOccupied());
+		assertFalse(position.isHit());
+	}
+
+	@DisplayName("O construtor clássico deve aceitar letra minúscula")
+	@Test
+	void classicConstructorShouldAcceptLowercaseRow() {
+		Position position = new Position('b', 5);
+
+		assertEquals(1, position.getRow());
+		assertEquals(4, position.getColumn());
+		assertEquals('B', position.getClassicRow());
+		assertEquals(5, position.getClassicColumn());
+	}
+	@DisplayName("Não deve ser adjacente quando a linha está próxima mas a coluna está distante")
+	@Test
+	void shouldNotBeAdjacentWhenColumnDifferenceIsGreaterThanOne() {
+		Position p1 = new Position(3, 3);
+		Position p2 = new Position(4, 6);
+
+		assertFalse(p1.isAdjacentTo(p2));
+	}
+
 }
