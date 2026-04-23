@@ -30,7 +30,7 @@ public class PositionTest {
 	@BeforeEach
 	void setUp() {
 		position = new Position(2, 3);
-	//	position = new Position('C', 4);
+		//	position = new Position('C', 4);
 	}
 
 	@AfterEach
