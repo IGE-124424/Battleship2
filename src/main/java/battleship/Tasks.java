@@ -78,10 +78,7 @@ public class Tasks {
                     break;
 
                 case STATUS:
-                    if (myFleet != null)
-                        myFleet.printStatus();
-                    else
-                        System.out.println("Nenhuma frota carregada.");
+                    handleStatus(myFleet);
                     break;
 
                 case MAPA:
@@ -116,7 +113,7 @@ public class Tasks {
 
                             scoreboard.add("Jogo terminado — total jogadas: " + logJogadas.size());
 
-                            gerarPdf(logJogadas);
+                            generatePdfReport(logJogadas);
 
                             game = null;
                             myFleet = null;
@@ -153,7 +150,7 @@ public class Tasks {
 
                         scoreboard.add("Simulação terminada — total jogadas: " + logJogadas.size());
 
-                        gerarPdf(logJogadas);
+                        generatePdfReport(logJogadas);
 
                         game = null;
                         myFleet = null;
@@ -182,6 +179,18 @@ public class Tasks {
             }
         }
 
+        printScoreboard(scoreboard);
+    }
+
+    private static void handleStatus(IFleet myFleet) {
+        if (myFleet != null)
+            myFleet.printStatus();
+        else
+            System.out.println("Nenhuma frota carregada.");
+        return;
+    }
+
+    private static void printScoreboard(List<String> scoreboard) {
         System.out.println("\n===== SCOREBOARD =====");
 
         for (String s : scoreboard)
@@ -190,7 +199,7 @@ public class Tasks {
         System.out.println(GOODBYE_MESSAGE);
     }
 
-    private static void gerarPdf(List<String> logJogadas) {
+    private static void generatePdfReport(List<String> logJogadas) {
 
         try {
             Path pdf = PdfReportGenerator.generateMovesReport(
