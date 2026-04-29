@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 
 public class PdfReportGenerator {
 
+    private static final Pattern COORDINATE_PATTERN =
+            Pattern.compile("\"row\"\\s*:\\s*\"([A-Z])\"\\s*,\\s*\"column\"\\s*:\\s*(\\d+)");
+
     public static Path generateMovesReport(List<String> lines, Path outputPdf) throws IOException {
         Path parent = outputPdf.getParent();
         if (parent != null) {
@@ -26,9 +29,7 @@ public class PdfReportGenerator {
              PdfDocument pdf = new PdfDocument(writer);
              Document doc = new Document(pdf)) {
 
-            doc.add(new Paragraph("Relatório de Jogadas - Battleship"));
-            doc.add(new Paragraph("Gerado em: " + LocalDateTime.now()));
-            doc.add(new Paragraph(" "));
+            addReportHeader(doc);
 
             if (lines == null || lines.isEmpty()) {
                 doc.add(new Paragraph("Sem jogadas para apresentar."));
@@ -56,6 +57,12 @@ public class PdfReportGenerator {
         return outputPdf;
     }
 
+    private static void addReportHeader(Document doc) {
+        doc.add(new Paragraph("Relatório de Jogadas - Battleship"));
+        doc.add(new Paragraph("Gerado em: " + LocalDateTime.now()));
+        doc.add(new Paragraph(" "));
+    }
+
     private static String formatMoveLine(String rawLine, int numeroJogada) {
         List<String> coordenadas = extractCoordinates(rawLine);
 
@@ -69,8 +76,7 @@ public class PdfReportGenerator {
     private static List<String> extractCoordinates(String text) {
         List<String> coordenadas = new ArrayList<>();
 
-        Pattern pattern = Pattern.compile("\"row\"\\s*:\\s*\"([A-Z])\"\\s*,\\s*\"column\"\\s*:\\s*(\\d+)");
-        Matcher matcher = pattern.matcher(text);
+        Matcher matcher = COORDINATE_PATTERN.matcher(text);
 
         while (matcher.find()) {
             String row = matcher.group(1);
