@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 
 public class PdfReportGenerator {
 
+    private static final Pattern COORDINATE_PATTERN =
+            Pattern.compile("\"row\"\\s*:\\s*\"([A-Z])\"\\s*,\\s*\"column\"\\s*:\\s*(\\d+)");
+
     public static Path generateMovesReport(List<String> lines, Path outputPdf) throws IOException {
         Path parent = outputPdf.getParent();
         if (parent != null) {
@@ -73,8 +76,7 @@ public class PdfReportGenerator {
     private static List<String> extractCoordinates(String text) {
         List<String> coordenadas = new ArrayList<>();
 
-        Pattern pattern = Pattern.compile("\"row\"\\s*:\\s*\"([A-Z])\"\\s*,\\s*\"column\"\\s*:\\s*(\\d+)");
-        Matcher matcher = pattern.matcher(text);
+        Matcher matcher = COORDINATE_PATTERN.matcher(text);
 
         while (matcher.find()) {
             String row = matcher.group(1);
