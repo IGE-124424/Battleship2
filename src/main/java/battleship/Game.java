@@ -32,28 +32,11 @@ public class Game implements IGame
 
         initializeBoardContents(map);
 
-        for (IShip ship : fleet.getShips()) {
-			for (IPosition ship_pos : ship.getPositions())
-				map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
-			if (!ship.stillFloating())
-				for (IPosition adjacent_pos : ship.getAdjacentPositions())
-					map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
-		}
+        placeShipsAndAdjacents(fleet, map);
 
-		if (show_shots)
-			for (IMove move : moves)
-				for (IPosition shot : move.getShots()) {
-					if (shot.isInside()){
-						int row = shot.getRow();
-						int col = shot.getColumn();
-						if (map[row][col] == SHIP_MARKER)
-							map[row][col] = SHOT_SHIP_MARKER;
-						if (map[row][col] == EMPTY_MARKER || map[row][col] == SHIP_ADJACENT_MARKER)
-							map[row][col] = SHOT_WATER_MARKER;
-					}
-				}
+        applyShotMarkers(moves, show_shots, map);
 
-		System.out.println();
+        System.out.println();
 		System.out.print("    ");
 		for (int col = 0; col < BOARD_SIZE; col++) {
 			System.out.print(" " + (col + 1));
@@ -88,7 +71,37 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-	/**
+    private static void applyShotMarkers(List<IMove> moves, boolean show_shots, char[][] map) {
+        if (show_shots) {
+            for (IMove move : moves)
+                for (IPosition shot : move.getShots()) {
+                    if (shot.isInside()) {
+                        int row = shot.getRow();
+                        int col = shot.getColumn();
+                        markShotOnBoard(map, row, col);
+                    }
+                }
+        }
+    }
+
+    private static void markShotOnBoard(char[][] map, int row, int col) {
+        if (map[row][col] == SHIP_MARKER)
+            map[row][col] = SHOT_SHIP_MARKER;
+        if (map[row][col] == EMPTY_MARKER || map[row][col] == SHIP_ADJACENT_MARKER)
+            map[row][col] = SHOT_WATER_MARKER;
+    }
+
+    private static void placeShipsAndAdjacents(IFleet fleet, char[][] map) {
+        for (IShip ship : fleet.getShips()) {
+			for (IPosition ship_pos : ship.getPositions())
+				map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
+			if (!ship.stillFloating())
+				for (IPosition adjacent_pos : ship.getAdjacentPositions())
+					map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
+		}
+    }
+
+    /**
 	 * Serializes a list of shot positions into a JSON string. Each shot is represented
 	 * with its classic row and column values. The method uses the Jackson library for
 	 * JSON serialization.
@@ -290,25 +303,26 @@ public class Game implements IGame
 		// Criar lista para armazenar os tiros
 		List<IPosition> shots = new ArrayList<>();
 
-		Scanner inputScanner = new Scanner(input);
-		while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
-			// Lê a próxima parte e constrói uma posição
-			String token = inputScanner.next();
+        try (Scanner inputScanner = new Scanner(input)) {
+            while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
+                // Lê a próxima parte e constrói uma posição
+                String token = inputScanner.next();
 
-			if (token.matches("[A-Za-z]")) {
-				// Caso seja somente uma coluna ("A", "B", etc.), esperar o próximo número
-				if (inputScanner.hasNextInt()) {
-					int row = inputScanner.nextInt();
-					shots.add(new Position(token.toUpperCase().charAt(0), row));
-				} else {
-					throw new IllegalArgumentException("Posição incompleta! A coluna '" + token + "' não é seguida por uma linha.");
-				}
-			} else {
-				// Caso o token já contenha a coluna e a linha juntas (ex.: "A3")
-				Scanner singleScanner = new Scanner(token);
-				shots.add(Tasks.readClassicPosition(singleScanner));
-			}
-		}
+                if (token.matches("[A-Za-z]")) {
+                    // Caso seja somente uma coluna ("A", "B", etc.), esperar o próximo número
+                    if (inputScanner.hasNextInt()) {
+                        int row = inputScanner.nextInt();
+                        shots.add(new Position(token.toUpperCase().charAt(0), row));
+                    } else {
+                        throw new IllegalArgumentException("Posição incompleta! A coluna '" + token + "' não é seguida por uma linha.");
+                    }
+                } else {
+                    // Caso o token já contenha a coluna e a linha juntas (ex.: "A3")
+                    Scanner singleScanner = new Scanner(token);
+                    shots.add(Tasks.readClassicPosition(singleScanner));
+                }
+            }
+        }
 
 		if (shots.size() != NUMBER_SHOTS) {
 			throw new IllegalArgumentException("Você deve inserir exatamente " + NUMBER_SHOTS + " posições!");
