@@ -82,10 +82,7 @@ public class Tasks {
                     break;
 
                 case MAPA:
-                    if (game != null)
-                        game.printMyBoard(false, true);
-                    else
-                        System.out.println("Nenhum jogo iniciado.");
+                    handleMap(game, false);
                     break;
 
                 case RAJADA:
@@ -163,11 +160,7 @@ public class Tasks {
 
                 case TIROS:
 
-                    if (game != null)
-                        game.printMyBoard(true, true);
-                    else
-                        System.out.println("Nenhum jogo iniciado.");
-
+                    handleMap(game, true);
                     break;
 
                 case AJUDA:
@@ -180,6 +173,14 @@ public class Tasks {
         }
 
         printScoreboard(scoreboard);
+    }
+
+    private static void handleMap(IGame game, boolean show_shots) {
+        if (game != null)
+            game.printMyBoard(show_shots, true);
+        else
+            System.out.println("Nenhum jogo iniciado.");
+        return;
     }
 
     private static void handleStatus(IFleet myFleet) {
