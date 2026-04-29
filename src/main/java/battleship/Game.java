@@ -3,6 +3,7 @@ package battleship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -210,15 +211,9 @@ public class Game implements IGame
 		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
 
-		Set<IPosition> usablePositions = new HashSet<IPosition>();
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				usablePositions.add(new Position(r, c));
+        Set<IPosition> usablePositions = buildUsablePositions();
 
-		this.myFleet.getSunkShips().forEach(ship -> usablePositions.removeAll(ship.getAdjacentPositions()));
-		this.alienMoves.forEach(move ->  usablePositions.removeAll(move.getShots()));
-
-		List<IPosition> candidateShots = new ArrayList<>(usablePositions);
+        List<IPosition> candidateShots = new ArrayList<>(usablePositions);
 
 		// Criar lista para armazenar os tiros
 		List<IPosition> shots = new ArrayList<IPosition>();
@@ -227,34 +222,53 @@ public class Game implements IGame
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
 
 		IPosition newShot = null;
-		if (candidateShots.size() >= Game.NUMBER_SHOTS)
-			while (shots.size() < Game.NUMBER_SHOTS) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-		else {
-			while (shots.size() < candidateShots.size()) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-			while (shots.size() < Game.NUMBER_SHOTS)
-				shots.add(newShot);
-		}
+        generateShots(candidateShots, shots, newShot, random);
 
-		System.out.print("rajada ");
-		for (IPosition shot : shots)
-			System.out.print(shot + " ");
-		System.out.println();
+        System.out.print("rajada ");
+        printVolley(shots);
+        System.out.println();
 
 		this.fireShots(shots);
 
 		return Game.jsonShots(shots);
 	}
 
+    private static void printVolley(List<IPosition> shots) {
+        for (IPosition shot : shots)
+            System.out.print(shot + " ");
+    }
 
-	/**
+    private static void generateShots(List<IPosition> candidateShots, List<IPosition> shots, IPosition newShot, Random random) {
+        if (candidateShots.size() >= Game.NUMBER_SHOTS)
+            while (shots.size() < Game.NUMBER_SHOTS) {
+                newShot = candidateShots.get(random.nextInt(candidateShots.size()));
+                if (!shots.contains(newShot))
+                    shots.add(newShot);
+            }
+        else {
+            while (shots.size() < candidateShots.size()) {
+                newShot = candidateShots.get(random.nextInt(candidateShots.size()));
+                if (!shots.contains(newShot))
+                    shots.add(newShot);
+            }
+            while (shots.size() < Game.NUMBER_SHOTS)
+                shots.add(newShot);
+        }
+    }
+
+    private @NotNull Set<IPosition> buildUsablePositions() {
+        Set<IPosition> usablePositions = new HashSet<IPosition>();
+        for (int r = 0; r < BOARD_SIZE; r++)
+            for (int c = 0; c < BOARD_SIZE; c++)
+                usablePositions.add(new Position(r, c));
+
+        this.myFleet.getSunkShips().forEach(ship -> usablePositions.removeAll(ship.getAdjacentPositions()));
+        this.alienMoves.forEach(move ->  usablePositions.removeAll(move.getShots()));
+        return usablePositions;
+    }
+
+
+    /**
 	 * Reads and processes the enemy fire input from the specified scanner.
 	 * The method expects input describing positions for enemy shots. It verifies
 	 * the format, ensures the correct number of positions are provided, and then fires
