@@ -13,6 +13,7 @@ public class Fleet implements IFleet
 {
 
     public static final String SHIP_TYPE_CARAVELA = "caravela";
+    public static final String SHIP_TYPE_BARCA = "barca";
 
     /**
 	 * Creates a randomly generated fleet containing ships of various predefined types.
@@ -31,7 +32,7 @@ public class Fleet implements IFleet
 				 	"fragata",                           // 1 frigate
  				 	"nau", "nau",                        // 2 carracks
                             SHIP_TYPE_CARAVELA, SHIP_TYPE_CARAVELA, SHIP_TYPE_CARAVELA,  // 3 caravels
-					"barca", "barca", "barca", "barca"}; // 4 barges
+                            SHIP_TYPE_BARCA, SHIP_TYPE_BARCA, SHIP_TYPE_BARCA, SHIP_TYPE_BARCA}; // 4 barges
 
 		int fleetSize = 0;
 
