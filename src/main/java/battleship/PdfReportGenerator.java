@@ -26,9 +26,7 @@ public class PdfReportGenerator {
              PdfDocument pdf = new PdfDocument(writer);
              Document doc = new Document(pdf)) {
 
-            doc.add(new Paragraph("Relatório de Jogadas - Battleship"));
-            doc.add(new Paragraph("Gerado em: " + LocalDateTime.now()));
-            doc.add(new Paragraph(" "));
+            addReportHeader(doc);
 
             if (lines == null || lines.isEmpty()) {
                 doc.add(new Paragraph("Sem jogadas para apresentar."));
@@ -54,6 +52,12 @@ public class PdfReportGenerator {
         }
 
         return outputPdf;
+    }
+
+    private static void addReportHeader(Document doc) {
+        doc.add(new Paragraph("Relatório de Jogadas - Battleship"));
+        doc.add(new Paragraph("Gerado em: " + LocalDateTime.now()));
+        doc.add(new Paragraph(" "));
     }
 
     private static String formatMoveLine(String rawLine, int numeroJogada) {
