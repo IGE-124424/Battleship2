@@ -348,9 +348,10 @@ public abstract class Ship implements IShip
 		assert other != null;
 
 		Iterator<IPosition> otherPos = other.getPositions().iterator();
-		while (otherPos.hasNext())
-			if (tooCloseTo(otherPos.next()))
-			return true;
+		while (otherPos.hasNext()) {
+            if (tooCloseTo(otherPos.next()))
+                return true;
+        }
 
 		return false;
     }
