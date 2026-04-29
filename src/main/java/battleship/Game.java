@@ -29,11 +29,9 @@ public class Game implements IGame
 
 		char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
 
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				map[r][c] = EMPTY_MARKER;
+        initializeBoardContents(map);
 
-		for (IShip ship : fleet.getShips()) {
+        for (IShip ship : fleet.getShips()) {
 			for (IPosition ship_pos : ship.getPositions())
 				map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
 			if (!ship.stillFloating())
@@ -438,33 +436,45 @@ public class Game implements IGame
 
         char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
 
-        for (int r = 0; r < BOARD_SIZE; r++)
-            for (int c = 0; c < BOARD_SIZE; c++)
-                map[r][c] = EMPTY_MARKER;
+        initializeBoardContents(map);
 
+        placeShips(map);
+
+        if (showShots) {
+            applyShots(map);
+        }
+
+        return map;
+    }
+
+    private void applyShots(char[][] map) {
+        for (IMove move : alienMoves) {
+            for (IPosition shot : move.getShots()) {
+
+                int row = shot.getRow();
+                int col = shot.getColumn();
+
+                if (map[row][col] == SHIP_MARKER)
+                    map[row][col] = SHOT_SHIP_MARKER;
+                else if (map[row][col] == EMPTY_MARKER || map[row][col] == SHIP_ADJACENT_MARKER)
+                    map[row][col] = SHOT_WATER_MARKER;
+            }
+        }
+    }
+
+    private void placeShips(char[][] map) {
         for (IShip ship : myFleet.getShips()) {
             for (IPosition pos : ship.getPositions()) {
                 map[pos.getRow()][pos.getColumn()] = SHIP_MARKER;
 
             }
         }
+    }
 
-        if (showShots) {
-            for (IMove move : alienMoves) {
-                for (IPosition shot : move.getShots()) {
-
-                    int row = shot.getRow();
-                    int col = shot.getColumn();
-
-                    if (map[row][col] == SHIP_MARKER)
-                        map[row][col] = SHOT_SHIP_MARKER;
-                    else if (map[row][col] == EMPTY_MARKER || map[row][col] == SHIP_ADJACENT_MARKER)
-                        map[row][col] = SHOT_WATER_MARKER;
-                }
-            }
-        }
-
-        return map;
+    private static void initializeBoardContents(char[][] map) {
+        for (int r = 0; r < BOARD_SIZE; r++)
+            for (int c = 0; c < BOARD_SIZE; c++)
+                map[r][c] = EMPTY_MARKER;
     }
 
     public void over() {
