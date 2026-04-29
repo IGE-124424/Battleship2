@@ -187,7 +187,7 @@ public class Game implements IGame
 	@Override
 	public IFleet getAlienFleet()
 	{
-		return myFleet;
+		return alienFleet;
 	}
 
 	@Override

@@ -398,11 +398,11 @@ public class GameTest {
 		assertDoesNotThrow(() -> Game.printBoard(game.getMyFleet(), game.getAlienMoves(), true, true));
 	}
 
-	@DisplayName("getAlienFleet devolve a mesma referência usada pela implementação atual")
-	@Test
-	void getAlienFleetShouldReturnCurrentImplementationReference() {
-		assertSame(game.getMyFleet(), game.getAlienFleet());
-	}
+	@DisplayName("getAlienFleet devolve a referência alienFleet")
+    @Test
+    void getAlienFleetShouldReturnAlienFleetReference() {
+        assertNotSame(game.getMyFleet(), game.getAlienFleet());
+    }
 
 	@DisplayName("fireSingleShot deve contar repetido quando o parâmetro isRepeated é true")
 	@Test
