@@ -11,7 +11,10 @@ import java.util.List;
  */
 public class Fleet implements IFleet
 {
-	/**
+
+    public static final String SHIP_TYPE_CARAVELA = "caravela";
+
+    /**
 	 * Creates a randomly generated fleet containing ships of various predefined types.
 	 * Each ship is assigned a random bearing and position. If a ship cannot be added
 	 * due to constraints (e.g., collision or boundary issues), it will be retried.
@@ -27,7 +30,7 @@ public class Fleet implements IFleet
 					{"galeao",                           // 1 galleon
 				 	"fragata",                           // 1 frigate
  				 	"nau", "nau",                        // 2 carracks
-					"caravela", "caravela", "caravela",  // 3 caravels
+                            SHIP_TYPE_CARAVELA, SHIP_TYPE_CARAVELA, SHIP_TYPE_CARAVELA,  // 3 caravels
 					"barca", "barca", "barca", "barca"}; // 4 barges
 
 		int fleetSize = 0;
