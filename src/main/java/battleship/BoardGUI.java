@@ -28,13 +28,21 @@ public class BoardGUI extends Application {
     public void start(Stage stage) {
 
         Image shipImage = loadShipImage();
-        GridPane grid = new GridPane();
+        GridPane grid = createBoardGrid(shipImage);
 
+        Scene scene = new Scene(grid);
+
+        stage.setTitle("Battleship Board");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private GridPane createBoardGrid(Image shipImage) {
+        GridPane grid = new GridPane();
         char[][] board = game.getBoard(true);
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-
                 char value = board[row][col];
 
                 if (value == '#') {
@@ -47,11 +55,7 @@ public class BoardGUI extends Application {
             }
         }
 
-        Scene scene = new Scene(grid);
-
-        stage.setTitle("Battleship Board");
-        stage.setScene(scene);
-        stage.show();
+        return grid;
     }
 
     private Image loadShipImage() {
