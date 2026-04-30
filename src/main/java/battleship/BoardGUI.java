@@ -17,6 +17,7 @@ public class BoardGUI extends Application {
     private static final int SIZE = 10;
     private static final int CELL_SIZE = 40;
     private static final String SHIP_IMAGE_PATH = "/images/navio.jpg";
+    private static final String WINDOW_TITLE = "Battleship Board";
 
     private static Game game;
 
@@ -32,7 +33,7 @@ public class BoardGUI extends Application {
 
         Scene scene = new Scene(grid);
 
-        stage.setTitle("Battleship Board");
+        stage.setTitle(WINDOW_TITLE);
         stage.setScene(scene);
         stage.show();
     }
