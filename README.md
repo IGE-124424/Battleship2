@@ -51,9 +51,9 @@ https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bs
 ## Excel (Bartolomeu)
 Comentário feito no excel a nível da classe Scoreboard que criei para a minha funcionalidade implemnetada:
 -Commit fd264a0
+<img width="1904" height="849" alt="image" src="https://github.com/user-attachments/assets/2ac94128-e79b-4b0d-bc1c-335274604632" />
 
 A funcionalidade de Scoreboard de jogos passados foi implementada principalmente através da criação da classe Scoreboard, sendo também necessárias pequenas alterações nas classes Game e Tasks para permitir o registo e a apresentação dos resultados. Do ponto de vista das métricas, a Scoreboard apresenta uma dimensão reduzida (CLOC=17, NCSS=15, NOM=2), o que mostra que a solução foi mantida simples e bem delimitada. A complexidade da classe também é baixa (WMC=4, CCC=2), indicando que a lógica introduzida é relativamente fácil de compreender e manter. Ao nível dos métodos, mostrarResultados() concentra a maior parte da lógica, apresentando valores superiores a addResultado(String), mas ainda assim controlados (LOC=14, CC=3). O acoplamento observado (CBO=7, RFC=7) é aceitável, uma vez que esta funcionalidade precisa de interagir com outras partes do sistema. Globalmente, a implementação contribuiu para uma melhor organização do código, ao separar numa classe própria a responsabilidade de guardar e apresentar os resultados dos jogos anteriores.
-<img width="1904" height="849" alt="image" src="https://github.com/user-attachments/assets/2ac94128-e79b-4b0d-bc1c-335274604632" />
 
 https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
 
@@ -64,12 +64,8 @@ Comentário feito no excel a nível da classe BoardGUI que criei para a minha fu
 <img width="1995" height="1105" alt="Captura de ecrã 2026-04-10 022359" src="https://github.com/user-attachments/assets/288b4096-7013-4215-8b8b-d35d084e9c6c" />
 
 O método start(Stage stage) é responsável pela construção e apresentação gráfica do tabuleiro do jogo utilizando JavaFX. Este método percorre a matriz do tabuleiro através de ciclos aninhados e, com base no valor de cada célula, decide qual o elemento visual a apresentar.
-
 A complexidade ciclomática (CC = 3) indica que o método possui um número reduzido de caminhos independentes, sendo portanto de baixa complexidade e fácil compreensão. A profundidade de aninhamento também é baixa (LND = 1), o que contribui para uma boa legibilidade do código.
-
 Apesar disso, o método concentra múltiplas responsabilidades, nomeadamente a lógica de decisão e a criação de componentes gráficos. Uma possível melhoria seria a extração de métodos auxiliares para a criação das células, promovendo maior modularidade, reutilização e facilidade de manutenção.
-
-
 
 https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
 
