@@ -4,7 +4,7 @@
 package battleship;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -104,10 +104,6 @@ public abstract class Ship implements IShip
 		this.category = Objects.requireNonNull(category, "Ship's category must not be null");
 		this.bearing = Objects.requireNonNull(bearing, "Ship's bearing must not be null");
 		this.pos = Objects.requireNonNull(pos, "Ship's position must not be null");
-	
-		this.category = category;
-		this.bearing = bearing;
-		this.pos = pos;
 		this.size = size;
 
 		positions = new ArrayList<>();
@@ -339,10 +335,10 @@ public abstract class Ship implements IShip
     {
 		assert other != null;
 
-		Iterator<IPosition> otherPos = other.getPositions().iterator();
-		while (otherPos.hasNext()) {
-            if (tooCloseTo(otherPos.next()))
+        for (IPosition otherPosition : other.getPositions()) {
+            if (tooCloseTo(otherPosition)) {
                 return true;
+            }
         }
 
 		return false;
@@ -416,7 +412,9 @@ public abstract class Ship implements IShip
 	@Override
     public String toString()
     {
-	return "[" + category + " " + bearing + " " + pos + "]";
+
+        String shipDescription = "[" + category + " " + bearing + " " + pos + "]";
+        return shipDescription;
     }
 
 }
