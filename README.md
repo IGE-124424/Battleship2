@@ -1,6 +1,16 @@
   # Battleship Game
 
 
+## Code Coverage Report (nota referente à ficha 4 - Testes Unitários e Refabricações - ponto B.9)
+
+O grupo optou por uma abordagem incremental na geração do relatório de cobertura de código.
+
+Em vez de cada membro gerar e submeter individualmente o seu próprio relatório (o que seria redundante), o trabalho foi realizado de forma sequencial: cada membro trabalhou sobre a versão mais recente do projeto, já com melhorias de cobertura introduzidas anteriormente.
+
+Desta forma, o relatório final incluído na diretoria `reports/` corresponde à versão mais atualizada e completa da cobertura de código alcançada pelo grupo.
+
+O nome da diretoria segue o formato exigido, incluindo o identificador do utilizador git do membro responsável pela geração do relatório final.
+
 
 ## GitHub Actions
 
