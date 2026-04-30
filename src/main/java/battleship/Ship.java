@@ -412,7 +412,9 @@ public abstract class Ship implements IShip
 	@Override
     public String toString()
     {
-	return "[" + category + " " + bearing + " " + pos + "]";
+
+        String shipDescription = "[" + category + " " + bearing + " " + pos + "]";
+        return shipDescription;
     }
 
 }
