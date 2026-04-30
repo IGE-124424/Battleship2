@@ -1,4 +1,5 @@
 package battleship;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -8,10 +9,14 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.InputStream;
+import java.util.Objects;
+
 public class BoardGUI extends Application {
 
     private static final int SIZE = 10;
     private static final int CELL_SIZE = 40;
+    private static final String SHIP_IMAGE_PATH = "/images/navio.jpg";
 
     private static Game game;
 
@@ -22,9 +27,7 @@ public class BoardGUI extends Application {
     @Override
     public void start(Stage stage) {
 
-        Image shipImage = new Image(
-                getClass().getResourceAsStream("/images/navio.jpg")
-        );
+        Image shipImage = loadShipImage();
         GridPane grid = new GridPane();
 
         char[][] board = game.getBoard(true);
@@ -35,24 +38,10 @@ public class BoardGUI extends Application {
                 char value = board[row][col];
 
                 if (value == '#') {
-
-                    ImageView ship = new ImageView(shipImage);
-                    ship.setFitWidth(CELL_SIZE);
-                    ship.setFitHeight(CELL_SIZE);
+                    ImageView ship = createShipView(shipImage);
                     grid.add(ship, col, row);
-
                 } else {
-
-                    Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE);
-                    cell.setStroke(Color.BLACK);
-
-                    if (value == '.')
-                        cell.setFill(Color.LIGHTBLUE);
-                    else if (value == '*')
-                        cell.setFill(Color.RED);
-                    else if (value == 'o')
-                        cell.setFill(Color.WHITE);
-
+                    Rectangle cell = createWaterCell(value);
                     grid.add(cell, col, row);
                 }
             }
@@ -63,6 +52,36 @@ public class BoardGUI extends Application {
         stage.setTitle("Battleship Board");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private Image loadShipImage() {
+        InputStream imageStream = Objects.requireNonNull(
+                getClass().getResourceAsStream(SHIP_IMAGE_PATH),
+                "Ship image resource not found: " + SHIP_IMAGE_PATH
+        );
+        return new Image(imageStream);
+    }
+
+    private ImageView createShipView(Image shipImage) {
+        ImageView ship = new ImageView(shipImage);
+        ship.setFitWidth(CELL_SIZE);
+        ship.setFitHeight(CELL_SIZE);
+        return ship;
+    }
+
+    private Rectangle createWaterCell(char value) {
+        Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE);
+        cell.setStroke(Color.BLACK);
+
+        if (value == '.') {
+            cell.setFill(Color.LIGHTBLUE);
+        } else if (value == '*') {
+            cell.setFill(Color.RED);
+        } else if (value == 'o') {
+            cell.setFill(Color.WHITE);
+        }
+
+        return cell;
     }
 
     public static void launchBoard() {
