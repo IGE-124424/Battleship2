@@ -63,6 +63,14 @@ https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bs
 Comentário feito no excel a nível da classe BoardGUI que criei para a minha funcionalidade implementada:
 <img width="1995" height="1105" alt="Captura de ecrã 2026-04-10 022359" src="https://github.com/user-attachments/assets/288b4096-7013-4215-8b8b-d35d084e9c6c" />
 
+O método start(Stage stage) é responsável pela construção e apresentação gráfica do tabuleiro do jogo utilizando JavaFX. Este método percorre a matriz do tabuleiro através de ciclos aninhados e, com base no valor de cada célula, decide qual o elemento visual a apresentar.
+
+A complexidade ciclomática (CC = 3) indica que o método possui um número reduzido de caminhos independentes, sendo portanto de baixa complexidade e fácil compreensão. A profundidade de aninhamento também é baixa (LND = 1), o que contribui para uma boa legibilidade do código.
+
+Apesar disso, o método concentra múltiplas responsabilidades, nomeadamente a lógica de decisão e a criação de componentes gráficos. Uma possível melhoria seria a extração de métodos auxiliares para a criação das células, promovendo maior modularidade, reutilização e facilidade de manutenção.
+
+
+
 https://iscteiul365-my.sharepoint.com/:x:/g/personal/bjlca_iscte-iul_pt/IQBoq2bsWvieTbPKZu_sp6FXAd1wY0YqPLPDkZO-A_KWyMo?e=A6DTSL
 
 
