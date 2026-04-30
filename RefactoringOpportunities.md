@@ -24,3 +24,9 @@
 | Game::jsonShots | Temporary Variable | Inline Variable | 124424 |
 | Game::fireShots | Long Method | Extract Method (validateShotCount) | 124424 |
 | Game::readEnemyFire | Long Method | Extract Method (addShotFromToken, addSeparatedClassicPosition) | 124424 |
+| Ship::Ship | Redundant Assignment | Remove Redundant Assignment | 123779 |
+| Ship::tooCloseTo(IShip) | Iterator Usage | Replace Iterator with Enhanced For | 123779 |
+| Ship::toString | Long String Concatenation | Introduce Variable | 123779 |
+| BoardGUI::start | Possible Null Resource Stream | Extract Method (loadShipImage) | 123779 |
+| BoardGUI::start | Long Method / Mixed Responsibilities | Extract Method (createBoardGrid) | 123779 |
+| BoardGUI::start | Hardcoded Literal | Extract Constant (WINDOW_TITLE) | 123779 |
